@@ -5,11 +5,13 @@ from Kulka import Kulka
 # wysokość i szerokość ekranu
 SZEROKOSC_EKRANU = 1024
 WYSOKOSC_EKRANU = 800
+Zycia = 3
 
 # ustawienia pygame
 pygame.init()
 
 # obiekty ekranu, zegara i tła
+czcionka = pygame.font.SysFont("Comic Sans MS", 24)
 ekran = pygame.display.set_mode([SZEROKOSC_EKRANU, WYSOKOSC_EKRANU])
 zegar = pygame.time.Clock()
 obraz_tla = pygame.image.load('images/background.png')
@@ -36,6 +38,14 @@ while gra_dziala:
         platforma.ruszaj_platforma(1)
 
     kulka.aktualizuj(platforma)
+
+    if kulka.przegrana:
+        Zycia -= 1
+        if Zycia <= 0:
+            break
+        kulka.zresetuj_pozycje()
+        platforma.zresetuj_pozycje()
+
     platforma.aktualizuj()
 
     # wyświetl tło
@@ -44,6 +54,9 @@ while gra_dziala:
     # wyświetl platformę
     ekran.blit(platforma.obraz, platforma.rect)
     ekran.blit(kulka.obraz, kulka.pozycja)
+
+    tekst = czcionka.render(f"Życia: {Zycia}", False, (255, 0, 255))
+    ekran.blit(tekst, (16, 16))
 
     pygame.display.flip()
     zegar.tick(30)

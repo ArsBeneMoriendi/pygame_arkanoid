@@ -11,11 +11,11 @@ class Klocek(pygame.sprite.Sprite):
     def aktualizuj(self):
         maska_koloru = 0
         if self.zdrowie == 3:
-            maska_koloru = (0, 128, 0)
+            maska_koloru = (128, 0, 0)
         if self.zdrowie == 2:
             maska_koloru = (128, 128, 0)
         if self.zdrowie == 1:
-            maska_koloru = (128, 0, 0)
+            maska_koloru = (0, 128, 0)
 
         self.obraz = copy.copy(self.obraz_oryginalny)
         self.obraz.fill(maska_koloru, special_flags=pygame.BLEND_ADD)
